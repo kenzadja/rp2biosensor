@@ -1,6 +1,6 @@
-# rp2biosensor -- Convert RetroPath2.0 output to a graph network
+# rp2biosensor -- Build Sensing-Enabling Metabolic Pathways from RetroPath2.0 output
 
-rp2biosensor extracts metabolic paths linking 2 undetectable compounds
+rp2biosensor extracts metabolic paths linking undetectable compounds
 into a detectable one using biochemical reactions. This concept is known
 as "Sensing-Enabling Metabolic Pathways". See [doi: 10.1021/acssynbio.5b00225](https://doi.org/10.1021/acssynbio.5b00225)
 for more.

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<!--
+__author__ = 'Thomas Duigou (thomas.duigou@inrae.fr)'
+__license__ = 'MIT'
+-->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"/>
+
+    <title>Sensing Enabling Pathway</title>
+
+    <!-- Local libraries -->
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/cytoscape-3.19.0.min.js"></script>
+    <script src="js/jquery-ui-1.12.1.min.js"></script>
+
+    <!-- Dagre layout -->
+    <!-- <script src="js/dagre-0.8.5.min.js"></script> -->
+    <!-- <script src="js/cytoscape-dagre-2.3.2.js"></script> -->
+
+    <!-- Data -->
+    <script src="network.json"></script>
+
+    <!-- Viewer -->
+    <script src="js/viewer.js"></script>
+
+    <!-- CSS stuff -->
+    <link href="css/viewer.css" rel="stylesheet" type="text/css"/>
+
+    <!-- cose-bilkent layout -->
+    <!-- <script src="https://unpkg.com/layout-base/layout-base.js"></script> -->
+    <!-- <script src="https://unpkg.com/cose-base/cose-base.js"></script> -->
+    <!-- <script src="js/cytoscape-cose-bilkent.js"></script> -->
+
+</head>
+<body>
+
+    <div id="base">
+
+        <div id="viewer">
+            <div id="interaction" class="interact">
+                <!-- <div id="cofacor_handling">
+                    <div class="info-title">Cofactor options</div>
+                    <div class="spacer"></div>
+                    <input id="show_cofactors_button" type="button" value="Show cofactors"/>
+                    <input id="remove_cofactors_button" type="button" value="Hide cofactors"/>
+                </div> -->
+            </div>
+            <div id="cy"></div>
+            <div id="info">
+                <div id="molecule"></div>
+                <div class="info" id="information">
+                    <!-- Statup legend -->
+                    <div id="panel_startup_legend">
+                        <div class="info-title">Legend</div>
+                        <div class="info-subtitle">How to</div>
+                        <div class="help-tip">
+                            <p>Click on a node to view information on it.</p>
+                            <p>Clicking on a chemical node will show structural
+                                information (SMILES, InChI) as well as related
+                                entries in the PubChem database.</p>
+                            <p>Clicking on a reaction node will show related
+                                EC number(s), reaction template IDs (ie the reaction
+                                used to build the rule), and crosslinks to related
+                                entries in other database as well as in Selenzyme.</p>
+                        </div>
+                        <div class="info-subtitle">Node shape</div>
+                        <div class="help-content">
+                            <p><span class="symbol-compound">&#9634;</span>&nbsp;Chemical</p>
+                            <p><span class="symbol-transformation">&#9711;</span>&nbsp;Transformation (in/outgoing arrows show direction)</p>
+                        </div>
+                        <div class="info-subtitle">Compound color</div>
+                        <div class="help-content">
+                            <p><span class="symbol-compound symbol-target-color">▢</span>&nbsp;Target</p>
+                            <p><span class="symbol-compound symbol-inter-color">▢</span>&nbsp;Intermediate chemicals</p>
+                            <p><span class="symbol-compound symbol-precursor-color">▢</span>&nbsp;Precursors</p>
+                        </div>
+                    </div>
+                    <!-- Information on a selected chemical -->
+                    <div id="panel_chemical_info">
+                        <div class="info-title">Chemical</div>
+                        <div class="info-name"><span class="chem_info_label"></span></div>
+                        <div class="spacer"></div>
+                        <!-- SVG depiction -->
+                        <div>
+                            <div class="img-box">
+                                <div class="chem_info_svg"></div>
+                            </div>
+                        </div>
+                        <!-- SMILES -->
+                        <div>
+                            <div class="info-subtitle">SMILES</div>
+                            <div class="raw-text"><span class="chem_info_smiles"></span></div>
+                            <div class="link raw-text"><span class="chem_info_smiles_search"></span></div>
+                        </div>
+                        <!-- Inchi -->
+                        <div>
+                            <div class="info-subtitle">InChI</div>
+                            <div class="raw-text"><span class="chem_info_inchi"></span></div>
+                            <div class="link raw-text"><span class="chem_info_inchi_search"></span></div>
+                        </div>
+                        <!-- Inchikey -->
+                        <div>
+                            <div class="info-subtitle">InChIKey</div>
+                            <div class="raw-text"><span class="chem_info_inchikey"></span></div>
+                            <div class="link raw-text"><span class="chem_info_inchikey_search"></span></div>
+                        </div>
+                        <!-- Cofactor -->
+                        <div>
+                            <div class="info-subtitle">Cofactor?</div>
+                            <div class="raw-text"><span class="chem_info_iscofactor"></span></div>
+                        </div>
+                        <!-- Precursor -->
+                        <div>
+                            <div class="info-subtitle">Sink?</div>
+                            <div class="raw-text"><span class="chem_info_isprecursor"></span></div>
+                        </div>
+                    </div>
+                    <!-- Information on a selected reaction -->
+                    <div id="panel_reaction_info">
+                        <div class="info-title">Reaction</div>
+                        <div class="info-name"><span class="reaction_info_name"></span></div>
+                        <div class="spacer"></div>
+                        <!-- EC numbers -->
+                        <div>
+                            <div class="info-subtitle">EC number(s)</div>
+                            <div class="raw-text reaction_info_ecnumbers"></div>
+                        </div>
+                        <!-- Reaction template IDs -->
+                        <div>
+                            <div class="info-subtitle">Reaction template ID(s)</div>
+                            <div class="raw-text reaction_info_reaction_template_ids"></div>
+                        </div>
+                        <!-- Crosslink to Selenzyme -->
+                        <div>
+                            <div class="info-subtitle">Enzyme selection using Selenzyme</div>
+                            <div class="raw-text"><span class="reaction_info_selenzyme_crosslink"></span></div>
+                        </div>
+                        <!-- Rule score -->
+                        <div>
+                            <div class="info-subtitle">Rule score</div>
+                            <div class="raw-text"><span class="reaction_info_rule_score"></span></div>
+                        </div>
+                        <!-- Reaction SMILES -->
+                        <div>
+                            <div class="info-subtitle">Reaction SMILES</div>
+                            <div class="raw-text"><span class="reaction_info_rsmiles"></span></div>
+                        </div>
+                        <!-- Reaction rule IDs -->
+                        <div>
+                            <div class="info-subtitle">Rule ID(s)</div>
+                            <div class="raw-text reaction_info_ruleids"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

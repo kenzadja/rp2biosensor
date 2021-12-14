@@ -1,1 +1,14 @@
+# macos
 .DS_Store
+
+# Visual Studio Code
+.vscode
+
+# python
+.pytest_cache
+__pycache__
+
+# node
+node_modules
+package.json
+package-lock.json

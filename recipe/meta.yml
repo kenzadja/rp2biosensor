@@ -1,0 +1,46 @@
+{% set name = "rp2biosensor" %}
+{% set version = "1.0.0" %}
+# {% set data = load_setup_py_data() %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ data['version'] }}
+
+source:
+  path: ..
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install -vv .
+
+requirements:
+  host:
+    - python {{ python }}
+  run:
+    - python {{ python }}
+    - networkx
+    - rdkit
+    - pytest
+    - rr_cache
+
+test:
+  source_files:
+    - tests
+  imports:
+    - {{ name|lower }}
+  requires:
+    - pytest
+  commands:
+    - python -m {{ name|lower }}.cli --help
+    - pytest -v
+
+about:
+  home: https://github.com/brsynth/{{ name|lower }}
+  summary: "RetroRules Cache"
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - tduigou

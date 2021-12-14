@@ -1,0 +1,10 @@
+name: rp2biosensor-dev
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python >= 3.7
+  - networkx
+  - rdkit
+  - pytest
+  - rr_cache

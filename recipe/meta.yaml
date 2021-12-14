@@ -1,10 +1,9 @@
 {% set name = "rp2biosensor" %}
 {% set version = "1.0.0" %}
-# {% set data = load_setup_py_data() %}
 
 package:
   name: {{ name|lower }}
-  version: {{ data['version'] }}
+  version: {{ version }}
 
 source:
   path: ..
@@ -17,6 +16,7 @@ build:
 requirements:
   host:
     - python {{ python }}
+    - pip
   run:
     - python {{ python }}
     - networkx
@@ -32,14 +32,14 @@ test:
   requires:
     - pytest
   commands:
-    - python -m {{ name|lower }}.cli --help
+    - python -m {{ name|lower }} --help
     - pytest -v
 
 about:
   home: https://github.com/brsynth/{{ name|lower }}
-  summary: "RetroRules Cache"
+  summary: "Build Sensing-Enabling Metabolic Pathways from RetroPath2.0 output"
   license: MIT
-  license_file: LICENSE
+  license_file: LICENSE.md
 
 extra:
   recipe-maintainers:

@@ -382,11 +382,9 @@ $(function(){
             let node = evt.target;
             // Print info
             if (node.is('[type = "chemical"]')){
-                panel_startup_legend(false);
                 panel_reaction_info(null, false);
                 panel_chemical_info(node, true);
             } else if (node.is('[type = "reaction"]')){
-                panel_startup_legend(false);
                 panel_chemical_info(null, false);
                 panel_reaction_info(node, true);
             }

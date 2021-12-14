@@ -48,37 +48,36 @@ __license__ = 'MIT'
                     <input id="show_cofactors_button" type="button" value="Show cofactors"/>
                     <input id="remove_cofactors_button" type="button" value="Hide cofactors"/>
                 </div> -->
+                <!-- Statup legend -->
+                <div id="panel_startup_legend">
+                    <div class="info-title">How to</div>
+                    <div class="help-tip">
+                        <p>Click on a node to view information on it.</p>
+                        <p>Clicking on a chemical node will show structural
+                            information (SMILES, InChI) as well as related
+                            entries in the PubChem database.</p>
+                        <p>Clicking on a reaction node will show related
+                            EC number(s), reaction template IDs (ie the reaction
+                            used to build the rule), and crosslinks to related
+                            entries in other database as well as in Selenzyme.</p>
+                    </div>
+                    <div class="info-subtitle">Node shape</div>
+                    <div class="help-content">
+                        <p><span class="symbol-compound">&#9634;</span>&nbsp;Chemical</p>
+                        <p><span class="symbol-transformation">&#9711;</span>&nbsp;Transformation (in/outgoing arrows show direction)</p>
+                    </div>
+                    <div class="info-subtitle">Compound color</div>
+                    <div class="help-content">
+                        <p><span class="symbol-compound symbol-target-color">▢</span>&nbsp;Target</p>
+                        <p><span class="symbol-compound symbol-inter-color">▢</span>&nbsp;Intermediate chemicals</p>
+                        <p><span class="symbol-compound symbol-precursor-color">▢</span>&nbsp;Precursors</p>
+                    </div>
+                </div>
             </div>
             <div id="cy"></div>
             <div id="info">
                 <div id="molecule"></div>
                 <div class="info" id="information">
-                    <!-- Statup legend -->
-                    <div id="panel_startup_legend">
-                        <div class="info-title">Legend</div>
-                        <div class="info-subtitle">How to</div>
-                        <div class="help-tip">
-                            <p>Click on a node to view information on it.</p>
-                            <p>Clicking on a chemical node will show structural
-                                information (SMILES, InChI) as well as related
-                                entries in the PubChem database.</p>
-                            <p>Clicking on a reaction node will show related
-                                EC number(s), reaction template IDs (ie the reaction
-                                used to build the rule), and crosslinks to related
-                                entries in other database as well as in Selenzyme.</p>
-                        </div>
-                        <div class="info-subtitle">Node shape</div>
-                        <div class="help-content">
-                            <p><span class="symbol-compound">&#9634;</span>&nbsp;Chemical</p>
-                            <p><span class="symbol-transformation">&#9711;</span>&nbsp;Transformation (in/outgoing arrows show direction)</p>
-                        </div>
-                        <div class="info-subtitle">Compound color</div>
-                        <div class="help-content">
-                            <p><span class="symbol-compound symbol-target-color">▢</span>&nbsp;Target</p>
-                            <p><span class="symbol-compound symbol-inter-color">▢</span>&nbsp;Intermediate chemicals</p>
-                            <p><span class="symbol-compound symbol-precursor-color">▢</span>&nbsp;Precursors</p>
-                        </div>
-                    </div>
                     <!-- Information on a selected chemical -->
                     <div id="panel_chemical_info">
                         <div class="info-title">Chemical</div>

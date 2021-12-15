@@ -62,6 +62,6 @@ conda develop -n rp2biosensor-dev .
 python -m pytest -vv
 ```
 
-### Licence
+## Licence
 
 rp2biosensor is released under the MIT licence. See the [LICENSE.md](LICENSE.md) file for details.

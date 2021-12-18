@@ -14,7 +14,7 @@ def write(args, template_dir, json_str: str):
         # Append network
         with open(outdir_path / 'network.json', 'w') as ofh:
             ofh.write(f'network = {json_str}')
-        os.system("sed -i 's/\r//g' " + os.path.join(outdir_path + 'network.json'))
+        os.system("sed -i 's/\r//g' " + outdir_path + '/network.json')
     elif args.otype == 'file':
         # Prepare output dir
         outdir_path = Path(args.opath).resolve().parent
@@ -29,7 +29,7 @@ def write(args, template_dir, json_str: str):
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
             ofh.write(html_str)
-        os.system("sed -i 's/\r//g' " + outfile_path)
+        os.system("sed -i 's/\r//g' " + str(outfile_path))
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
 

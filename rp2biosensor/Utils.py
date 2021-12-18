@@ -1,7 +1,6 @@
 from pathlib import Path
 from distutils import dir_util
 from tempfile import TemporaryDirectory
-import os
 
 
 def write(args, template_dir, json_str: str):
@@ -12,9 +11,9 @@ def write(args, template_dir, json_str: str):
         # Copy template dir
         dir_util.copy_tree(str(template_dir), str(outdir_path))
         # Append network
-        with open(outdir_path / 'network.json', 'w') as ofh:
+        with open(outdir_path / 'network.json', 'w', newline='\r\n') as ofh:
             ofh.write(f'network = {json_str}')
-        os.system("sed -i 's/\r//g' " + os.path.join(str(outdir_path) + 'network.json'))
+        #os.system("sed -i 's/\r//g' " + os.path.join(str(outdir_path) + 'network.json'))
     elif args.otype == 'file':
         # Prepare output dir
         outdir_path = Path(args.opath).resolve().parent
@@ -24,13 +23,11 @@ def write(args, template_dir, json_str: str):
         with TemporaryDirectory() as temp_dir:
             tempdir_path = Path(temp_dir)
             dir_util.copy_tree(str(template_dir), str(tempdir_path))
-            with open(tempdir_path / 'network.json', 'w') as ofh:
+            with open(tempdir_path / 'network.json', 'w', newline='\r\n') as ofh:
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
             ofh.write(html_str)
-        os.system("sed -i 's/\r//g' " + str(outfile_path))
-        print ("sed -i 's/\r//g' " + str(outfile_path))
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
 

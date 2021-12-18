@@ -2,6 +2,7 @@ from types import SimpleNamespace
 from pathlib import Path
 from filecmp import cmpfiles
 from rp2biosensor.__main__ import run
+import os
 
 INPUT_PATH = Path(__file__).resolve().parent/ 'data' / 'input' / 'rp2-results_dmax-16.csv'
 OUTPUT_DIR_PATH = Path(__file__).resolve().parent / 'data' / 'output_dir'
@@ -41,6 +42,8 @@ def test_file_output(tmpdir):
     files_to_cmp = ['biosensor.html']
     args = SimpleNamespace(**options)
     run(args)
+    os.system("sed -i 's/\r//g' " + str(OUTPUT_FILE_PATH))
+    os.system("sed -i 's/\r//g' " + os.path.join(str(temp_path),"biosensor.html"))
     match, mismatch, errors = cmpfiles(OUTPUT_FILE_PATH, temp_path, files_to_cmp)
     try:
         assert 'biosensor.html' in match

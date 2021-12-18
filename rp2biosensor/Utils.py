@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 
 def write(args, template_dir, json_str: str):
     if args.otype == 'dir':
-        # Prepare output dir
+        # Prepare output dirr
         outdir_path = Path(args.opath).resolve()
         outdir_path.mkdir(parents=True, exist_ok=True)
         # Copy template dir

@@ -6,7 +6,7 @@ import os
 
 INPUT_PATH = Path(__file__).resolve().parent/ 'data' / 'input' / 'rp2-results_dmax-16.csv'
 OUTPUT_DIR_PATH = Path(__file__).resolve().parent / 'data' / 'output_dir'
-OUTPUT_FILE_PATH = 'C:\Users\kebazikabbaj\Desktop\git_test_kenza\rp2biosensor\tests\data\output_file'
+OUTPUT_FILE_PATH = '\Users\kebazikabbaj\Desktop\git_test_kenza\rp2biosensor\tests\data\output_file'
 test_output_file_path=os.path.join(Path(__file__).resolve().parent , 'data' , 'output_file')
 
 def test_dir_output(tmpdir):

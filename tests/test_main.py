@@ -7,6 +7,9 @@ import os
 INPUT_PATH = Path(__file__).resolve().parent/ 'data' / 'input' / 'rp2-results_dmax-16.csv'
 OUTPUT_DIR_PATH = Path(__file__).resolve().parent / 'data' / 'output_dir'
 OUTPUT_FILE_PATH = Path(__file__).resolve().parent / 'data' / 'output_file'
+test_output_file_path=os.path.join(Path(__file__).resolve().parent , 'data' , 'output_file')
+print ("test_output_file")
+print (test_output_file_path)
 
 def test_dir_output(tmpdir):
     temp_path = tmpdir / 'dir_case'  # tmpdir scope is session wised
@@ -43,6 +46,7 @@ def test_file_output(tmpdir):
     args = SimpleNamespace(**options)
     run(args)
     os.system("sed -i 's/\r//g' " + str(OUTPUT_FILE_PATH))
+    print ("sed -i 's/\r//g' " + str(OUTPUT_FILE_PATH))
     os.system("sed -i 's/\r//g' " + os.path.join(str(temp_path),"biosensor.html"))
     match, mismatch, errors = cmpfiles(OUTPUT_FILE_PATH, temp_path, files_to_cmp)
     try:
@@ -51,4 +55,5 @@ def test_file_output(tmpdir):
         print("Matched Files    : {}".format(match))
         print("Mismatched Files : {}".format(mismatch))
         print("Errors           : {}".format(errors))
+        print (OUTPUT_FILE_PATH)
         raise e

@@ -64,5 +64,5 @@ def all_in_one_file(ifolder: Path) -> str:
     net_str = open(ifolder / 'network.json', 'rb').read()
     ori = b'src="' + 'network.json'.encode("utf-8") + b'">'
     rep = b'>' + net_str
-    html_str = html_str.replace(ori, rep).replace(b'\r\n', b'\n')
+    html_str = html_str.replace(ori, rep)
     return html_str

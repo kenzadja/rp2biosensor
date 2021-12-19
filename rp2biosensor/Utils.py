@@ -28,7 +28,7 @@ def write(args, template_dir, json_str: str):
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
-            ofh.write(html_str.replace("\n", os.linesep))
+            ofh.write(html_str)
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
     
@@ -50,19 +50,19 @@ def all_in_one_file(ifolder: Path) -> str:
     ]
     for js_file in js_to_replace:
         js_bytes = open(ifolder / js_file, 'rb').read()
-        ori = b'src="' + js_file.encode() + b'">'
+        ori = b'src="' + js_file.encode("utf-8") + b'">'
         rep = b'>' + js_bytes
         html_str = html_str.replace(ori, rep)
     # open and read style.css and replace it in the HTML
     css_to_replace = ['css/viewer.css']
     for css_file in css_to_replace:
         css_str = open(ifolder / css_file, 'rb').read()
-        ori = b'<link href="' + css_file.encode() + b'" rel="stylesheet" type="text/css"/>'
+        ori = b'<link href="' + css_file.encode("utf-8") + b'" rel="stylesheet" type="text/css"/>'
         rep = b'<style type="text/css">' + css_str + b'</style>'
         html_str = html_str.replace(ori, rep)
     ### replace the network
     net_str = open(ifolder / 'network.json', 'rb').read()
-    ori = b'src="' + 'network.json'.encode() + b'">'
+    ori = b'src="' + 'network.json'.encode("utf-8") + b'">'
     rep = b'>' + net_str
-    html_str = html_str.replace(ori, rep)
+    html_str = html_str.replace(ori, rep).replace("\n", os.linesep)
     return html_str

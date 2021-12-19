@@ -27,11 +27,11 @@ def write(args, template_dir, json_str: str):
             with open(tempdir_path / 'network.json', 'w', newline='\n') as ofh:
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
-        with open(outfile_path, 'wb') as ofh:
-            ofh.write(html_str.encode("utf-8").replace("\n", os.linesep))
+        with open(outfile_path, 'w', newline='\n') as ofh:
+            ofh.write(html_str)
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
-
+    #html_str.encode("utf-8").replace("\n", os.linesep)
 
 def all_in_one_file(ifolder: Path) -> str:
     """Merge all needed file into a single HTML

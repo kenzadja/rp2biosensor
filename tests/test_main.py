@@ -5,7 +5,7 @@ from rp2biosensor.__main__ import run
 
 INPUT_PATH = Path(__file__).resolve().parent/ 'data' / 'input' / 'rp2-results_dmax-16.csv'
 OUTPUT_DIR_PATH = Path(__file__).resolve().parent / 'data' / 'output_dir'
-OUTPUT_FILE_PATH = '\\Users\\kebazikabbaj\\Desktop\\git_test_kenza\\rp2biosensor\\tests\\data\\output_file'
+OUTPUT_FILE_PATH = Path(__file__).resolve().parent / 'data' / 'output_file'
 
 def test_dir_output(tmpdir):
     temp_path = tmpdir / 'dir_case'  # tmpdir scope is session wised
@@ -48,5 +48,4 @@ def test_file_output(tmpdir):
         print("Matched Files    : {}".format(match))
         print("Mismatched Files : {}".format(mismatch))
         print("Errors           : {}".format(errors))
-        print (OUTPUT_FILE_PATH)
         raise e

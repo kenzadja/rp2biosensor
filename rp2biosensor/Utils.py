@@ -1,6 +1,7 @@
 from pathlib import Path
 from distutils import dir_util
 from tempfile import TemporaryDirectory
+import os
 
 
 def write(args, template_dir, json_str: str):
@@ -27,7 +28,7 @@ def write(args, template_dir, json_str: str):
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
-            ofh.write(html_str + b"\n")
+            ofh.write(html_str.encode("utf-8").replace("\n", os.linesep))
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
 

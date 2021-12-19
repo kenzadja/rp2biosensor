@@ -28,8 +28,7 @@ def write(args, template_dir, json_str: str):
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
-            html_str = html_str + (pad * chr(pad)).encode("utf-8").replace("\n", os.linesep)
-            ofh.write(html_str)
+            ofh.write(html_str.replace("\n", os.linesep))
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
     

@@ -1,6 +1,7 @@
 from pathlib import Path
 from distutils import dir_util
 from tempfile import TemporaryDirectory
+import re
 
 
 def write(args, template_dir, json_str: str):
@@ -12,6 +13,8 @@ def write(args, template_dir, json_str: str):
         dir_util.copy_tree(str(template_dir), str(outdir_path))
         # Append network
         with open(outdir_path / 'network.json', 'w') as ofh:
+            re.sub('\r', '', json_str)
+            print (json_str)
             ofh.write(f'network = {json_str}')
         #os.system("sed -i 's/\r//g' " + os.path.join(str(outdir_path) + 'network.json'))
     elif args.otype == 'file':
@@ -24,9 +27,11 @@ def write(args, template_dir, json_str: str):
             tempdir_path = Path(temp_dir)
             dir_util.copy_tree(str(template_dir), str(tempdir_path))
             with open(tempdir_path / 'network.json', 'w') as ofh:
+                re.sub('\r', '', json_str)
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
+            re.sub('\r', '', html_str)
             ofh.write(html_str)
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')

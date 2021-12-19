@@ -28,7 +28,7 @@ def write(args, template_dir, json_str: str):
                 ofh.write(f'network = {json_str}')
             html_str = all_in_one_file(tempdir_path)
         with open(outfile_path, 'wb') as ofh:
-            ofh.write(html_str)
+            ofh.write(html_str.replace(b'\r\n', b'\n'))
     else:
         raise NotImplementedError(f'Unexpected otype: {args.otype}')
     
@@ -64,5 +64,5 @@ def all_in_one_file(ifolder: Path) -> str:
     net_str = open(ifolder / 'network.json', 'rb').read()
     ori = b'src="' + 'network.json'.encode("utf-8") + b'">'
     rep = b'>' + net_str
-    html_str = html_str.replace(ori, rep).replace(b'\n', bytes(os.linesep))
+    html_str = html_str.replace(ori, rep).replace(b'\r\n', b'\n')
     return html_str

@@ -12,8 +12,8 @@ def write(args, template_dir, json_str: str):
         # Copy template dir
         dir_util.copy_tree(str(template_dir), str(outdir_path))
         # Append network
-        with open(outdir_path / 'network.json', 'w') as ofh:
-            ofh.write(f'network = {json_str}', newline='\n')
+        with open(outdir_path / 'network.json', 'w', newline='\n') as ofh:
+            ofh.write(f'network = {json_str}')
         #os.system("sed -i 's/\r//g' " + os.path.join(str(outdir_path) + 'network.json'))
     elif args.otype == 'file':
         # Prepare output dir
